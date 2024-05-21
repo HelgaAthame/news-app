@@ -1,5 +1,5 @@
-import { Welcome } from "./components/Welcome";
+import { Navigate } from "./navigate";
 
 export default function App() {
-  return <Welcome />;
+  return <Navigate />;
 }

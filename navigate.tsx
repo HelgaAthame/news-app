@@ -1,6 +1,7 @@
 import React from "react";
-import { Welcome } from "./components/Welcome";
-import { Contacts } from "./components/Contacts";
+import Welcome from "./components/Welcome";
+import Contacts from "./components/Contacts";
+import Article from "./components/Article";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
@@ -20,6 +21,11 @@ export const Navigate = () => {
           name="Contacts"
           component={Contacts}
           options={{ title: "About us" }}
+        />
+        <Stack.Screen
+          name="Article"
+          component={Article}
+          options={{ title: "Article" }}
         />
       </Stack.Navigator>
     </NavigationContainer>
