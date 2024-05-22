@@ -29,11 +29,17 @@ export default function Welcome({ navigation }: { navigation: any }) {
   const [news, setNews] = useState<News[]>(tempNews);
   const [addModalOpened, setAddModalOpened] = useState<boolean>(false);
 
+  const addArticle = (article: News): void => {
+    setNews((list) => [{ ...article, key: list.length }, ...list]);
+    setAddModalOpened(false);
+  };
+
   return (
     <Wrapper>
       <AddNews
         visible={addModalOpened}
         onClose={() => setAddModalOpened(false)}
+        addArticle={addArticle}
       />
       <View className="flex-row items-center gap-2 justify-between w-full px-2">
         <Button title={`View contacts`} onPress={loadScene} color="crimson" />
