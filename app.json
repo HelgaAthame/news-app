@@ -18,7 +18,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.helgaathame.newsapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -33,6 +34,17 @@
           ]
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "ba873146-03b0-4050-99cb-e8bc4435cc4c"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/ba873146-03b0-4050-99cb-e8bc4435cc4c"
+    }
   }
 }

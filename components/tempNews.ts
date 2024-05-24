@@ -3,12 +3,31 @@ import { News } from "./Welcome";
 export const tempNews: News[] = [
   {
     id: 0,
-    title: "Да, небо темнеет",
+    title: "Get started creating apps with Expo",
     description:
-      "Принимая во внимание показатели успешности, реализация намеченных плановых заданий играет определяющее значение для соответствующих условий активизации. Идейные соображения высшего порядка, а также высококачественный прототип будущего проекта создаёт предпосылки для стандартных подходов.",
-    text: `In a web browser, you can link to different pages using an anchor (<a>) tag. When the user clicks on a link, the URL is pushed to the browser history stack. When the user presses the back button, the browser pops the item from the top of the history stack, so the active page is now the previously visited page. React Native doesn't have a built-in idea of a global history stack like a web browser does -- this is where React Navigation enters the story.
+      "Expo is a framework that makes developing Android and iOS apps easier. Our framework provides file-based routing, a standard library of native modules, and much more. Expo is open source with an active community on GitHub and Discord.",
+    text: `Expo is an open-source framework and a platform for building and deploying React Native applications. It provides a set of tools, libraries, and services designed to simplify the development process, particularly for developers who may not have extensive experience with native mobile development. Expo allows you to build cross-platform mobile applications for iOS and Android using JavaScript and React.
 
-React Navigation\'s native stack navigator provides a way for your app to transition between screens and manage navigation history. If your app uses only one stack navigator then it is conceptually similar to how a web browser handles navigation state - your app pushes and pops items from the navigation stack as users interact with it, and this results in the user seeing different screens. A key difference between how this works in a web browser and in React Navigation is that React Navigation's native stack navigator provides the gestures and animations that you would expect on Android and iOS when navigating between routes in the stack.`,
+    Key Features of Expo
+    Managed Workflow:
+    
+    Expo Go App: You can develop and test your application on a physical device or emulator using the Expo Go app without needing to install native development tools like Xcode or Android Studio.
+    Instant Updates: You can push updates to your app without going through the app store approval process.
+    Prebuilt Libraries: Expo provides a wide range of prebuilt libraries and APIs for common functionalities like camera access, location services, and push notifications.
+    Bare Workflow:
+    
+    For more advanced use cases, you can "eject" your app from the managed workflow and take control of the native code while still using Expo's libraries.
+    Over-the-Air (OTA) Updates:
+    
+    With Expo, you can send updates to your app instantly without the need to resubmit to the app stores. This allows for quicker bug fixes and feature enhancements.
+    Expo SDK:
+    
+    Expo provides a comprehensive SDK with numerous APIs for handling tasks like authentication, file system access, image manipulation, and more.
+    Expo Application Services (EAS):
+    
+    EAS Build: A cloud-based service to build your Expo app for iOS and Android.
+    EAS Submit: A tool to help you submit your apps to the Apple App Store and Google Play Store.
+    EAS Update: Manage and deploy updates to your app over the air.`,
     img: "https://img.freepik.com/premium-photo/colorful-image-glass-ball-with-word-color-ball_912214-189.jpg",
   },
   {
