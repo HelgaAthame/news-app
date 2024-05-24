@@ -14,7 +14,7 @@ export const ALL_NEWS = gql`
 
 export const ONE_NEWS = gql`
   query OneNews($id: ID!) {
-    getOneNews(id: $id) {
+    oneNews: getOneNews(id: $id) {
       id
       text
       description

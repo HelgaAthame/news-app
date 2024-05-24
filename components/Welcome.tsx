@@ -8,11 +8,14 @@ import {
   TouchableOpacity,
   Image,
   Modal,
+  ActivityIndicator,
 } from "react-native";
 import { tempNews } from "./tempNews";
 import { Wrapper } from "./Wrapper";
 import { Ionicons } from "@expo/vector-icons";
 import { AddNews } from "./AddNews";
+import { useQuery } from "@apollo/client";
+import { ALL_NEWS } from "../apollo/news";
 
 export type News = {
   id: number;
@@ -23,6 +26,8 @@ export type News = {
 };
 
 export default function Welcome({ navigation }: { navigation: any }) {
+  const { loading, error, data, previousData } = useQuery(ALL_NEWS);
+
   const loadScene = () => {
     navigation.navigate("Contacts");
   };
@@ -33,6 +38,13 @@ export default function Welcome({ navigation }: { navigation: any }) {
     setNews((list) => [{ ...article, key: list.length }, ...list]);
     setAddModalOpened(false);
   };
+
+  if (loading) return;
+  <ActivityIndicator size="large" color="crimson" />;
+  if (error) {
+    return <Text>{JSON.stringify(error, null, 2)}</Text>;
+  }
+  console.log(data);
 
   return (
     <Wrapper>
@@ -48,7 +60,7 @@ export default function Welcome({ navigation }: { navigation: any }) {
         </TouchableOpacity>
       </View>
       <FlatList
-        data={news}
+        data={data.getAllNews}
         renderItem={({ item }) => (
           <TouchableOpacity
             key={item.id}
