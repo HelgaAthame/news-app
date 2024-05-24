@@ -44,14 +44,13 @@ export default function Welcome({ navigation }: { navigation: any }) {
   if (error) {
     return <Text>{JSON.stringify(error, null, 2)}</Text>;
   }
-  console.log(data);
 
   return (
     <Wrapper>
       <AddNews
         visible={addModalOpened}
         onClose={() => setAddModalOpened(false)}
-        addArticle={addArticle}
+        //addArticle={addArticle}
       />
       <View className="flex-row items-center gap-2 justify-between w-full px-2">
         <Button title={`View contacts`} onPress={loadScene} color="crimson" />
@@ -60,7 +59,7 @@ export default function Welcome({ navigation }: { navigation: any }) {
         </TouchableOpacity>
       </View>
       <FlatList
-        data={data.getAllNews}
+        data={data.allNews}
         renderItem={({ item }) => (
           <TouchableOpacity
             key={item.id}
