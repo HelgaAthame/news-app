@@ -16,6 +16,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { AddNews } from "./AddNews";
 import { useQuery } from "@apollo/client";
 import { ALL_NEWS } from "../apollo/news";
+import { AntDesign } from "@expo/vector-icons";
+import { DeleteNews } from "./DeleteNews";
 
 export type News = {
   id: number;
@@ -26,18 +28,14 @@ export type News = {
 };
 
 export default function Welcome({ navigation }: { navigation: any }) {
-  const { loading, error, data, previousData } = useQuery(ALL_NEWS);
+  const { loading, error, data } = useQuery(ALL_NEWS);
 
   const loadScene = () => {
     navigation.navigate("Contacts");
   };
-  const [news, setNews] = useState<News[]>(tempNews);
   const [addModalOpened, setAddModalOpened] = useState<boolean>(false);
-
-  const addArticle = (article: News): void => {
-    setNews((list) => [{ ...article, key: list.length }, ...list]);
-    setAddModalOpened(false);
-  };
+  const [deleteModalOpened, setDeleteModalOpened] = useState<boolean>(false);
+  const [curArticle, setCurArticle] = useState<News | null>(null);
 
   if (loading) return;
   <ActivityIndicator size="large" color="crimson" />;
@@ -50,6 +48,13 @@ export default function Welcome({ navigation }: { navigation: any }) {
       <AddNews
         visible={addModalOpened}
         onClose={() => setAddModalOpened(false)}
+        //addArticle={addArticle}
+      />
+      <DeleteNews
+        visible={deleteModalOpened}
+        onClose={() => setDeleteModalOpened(false)}
+        id={curArticle?.id ?? 0}
+        name={curArticle?.title ?? "No name article"}
         //addArticle={addArticle}
       />
       <View className="flex-row items-center gap-2 justify-between w-full px-2">
@@ -78,6 +83,19 @@ export default function Welcome({ navigation }: { navigation: any }) {
               <Text className="text-lg font-bold text-slate-700 leading-5">
                 {item.title}
               </Text>
+
+              <TouchableOpacity
+                onPress={() => {
+                  setDeleteModalOpened(true);
+                  setCurArticle(item);
+                }}
+                className="gap-2 flex-row items-start p-2 w-full justify-end"
+              >
+                <AntDesign name="delete" size={24} color="black" />
+                <Text className="text-lg text-black font-medium uppercase">
+                  Delete
+                </Text>
+              </TouchableOpacity>
               <Text className="text-slate-800">{item.description}</Text>
             </View>
           </TouchableOpacity>

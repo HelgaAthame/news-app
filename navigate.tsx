@@ -25,7 +25,7 @@ export const Navigate = () => {
           name="Welcome"
           component={Welcome}
           options={{
-            title: "Main Page",
+            title: "Article list",
             headerStyle: headerStyle,
             headerTitleStyle: headerTitleStyle,
           }}

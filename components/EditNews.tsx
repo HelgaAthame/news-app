@@ -11,12 +11,14 @@ import { Formik } from "formik";
 import { News } from "./Welcome";
 import * as Yup from "yup";
 import { useMutation } from "@apollo/client";
-import { ALL_NEWS, CREATE_NEWS, ONE_NEWS } from "../apollo/news";
+import { CREATE_NEWS, UPDATE_NEWS } from "../apollo/news";
+import { useEffect, useState } from "react";
 
 interface Props {
   visible: boolean;
   onClose: () => void;
-  //addArticle: (article: News) => void;
+  getUpdatedArticle: () => void;
+  article: News;
 }
 
 const formInput =
@@ -41,10 +43,18 @@ const AddSchema = Yup.object().shape({
     .required("Required"),
 });
 
-export const AddNews = ({ visible, onClose /*, addArticle*/ }: Props) => {
-  const [addArticle, { error }] = useMutation(CREATE_NEWS, {
-    refetchQueries: [ALL_NEWS, ONE_NEWS],
-  });
+export const EditNews = ({
+  visible,
+  onClose,
+  article,
+  getUpdatedArticle,
+}: Props) => {
+  const [myArticle, setMyArticle] = useState<News>(article);
+  const [editArticle, { error, data }] = useMutation(UPDATE_NEWS);
+  useEffect(() => {
+    getUpdatedArticle();
+    if (data) setMyArticle(data.updatedNews);
+  }, [data]);
   if (error) {
     return <Text>{JSON.stringify(error, null, 2)}</Text>;
   }
@@ -52,7 +62,7 @@ export const AddNews = ({ visible, onClose /*, addArticle*/ }: Props) => {
     <Modal visible={visible}>
       <View className="flex-row flew-nowrap justify-between p-2 items-center bg-red-50">
         <Text className="text-2xl font-bold text-slate-700 text-center grow">
-          Add new article
+          Edit {myArticle.title}
         </Text>
         <TouchableOpacity onPress={onClose} className="w-min ">
           <Ionicons name="close-circle" size={40} color="gray" />
@@ -61,15 +71,15 @@ export const AddNews = ({ visible, onClose /*, addArticle*/ }: Props) => {
       <View className="gap-2 bg-red-50 grow">
         <Formik
           initialValues={{
-            title: "",
-            description: "",
-            text: "",
-            img: "",
+            title: myArticle.title,
+            description: myArticle.description,
+            text: myArticle.text,
+            img: myArticle.img,
           }}
           onSubmit={(values, action) => {
-            addArticle({
+            editArticle({
               variables: {
-                news: values as News,
+                news: { id: myArticle.id, ...values } as News,
               },
             });
             action.resetForm();
@@ -135,7 +145,7 @@ export const AddNews = ({ visible, onClose /*, addArticle*/ }: Props) => {
               </View>
               <View>
                 <Button
-                  title="Create"
+                  title="Save"
                   onPress={() => props.handleSubmit()}
                   color="crimson"
                 />
