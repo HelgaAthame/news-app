@@ -18,6 +18,7 @@ import { useQuery } from "@apollo/client";
 import { ALL_NEWS } from "../apollo/news";
 import { AntDesign } from "@expo/vector-icons";
 import { DeleteNews } from "./DeleteNews";
+import { initialImageUri } from "./tempImageUri";
 
 export type News = {
   id: number;
@@ -58,7 +59,7 @@ export default function Welcome({ navigation }: { navigation: any }) {
         //addArticle={addArticle}
       />
       <View className="flex-row items-center gap-2 justify-between w-full px-2">
-        <Button title={`View contacts`} onPress={loadScene} color="crimson" />
+        <Button title={`About us`} onPress={loadScene} color="crimson" />
         <TouchableOpacity onPress={() => setAddModalOpened(true)}>
           <Ionicons name="add-circle" size={40} color="green" />
         </TouchableOpacity>
@@ -68,34 +69,41 @@ export default function Welcome({ navigation }: { navigation: any }) {
         renderItem={({ item }) => (
           <TouchableOpacity
             key={item.id}
-            className="rounded-md bg-red-50 overflow-hidden"
+            className="rounded-md bg-red-50 overflow-hidden relative"
             onPress={() => {
               navigation.navigate("Article", item);
             }}
           >
+            <View className="absolute w-full h-48 overflow-hidden">
+              <Image
+                className="w-full h-48 z-1"
+                source={{
+                  uri: initialImageUri,
+                }}
+              />
+            </View>
             <Image
-              className="w-full h-48"
+              className="w-full h-48 z-1"
               source={{
                 uri: item.img,
               }}
             />
             <View className="p-4 gap-2">
-              <Text className="text-lg font-bold text-slate-700 leading-5">
-                {item.title}
-              </Text>
-
-              <TouchableOpacity
-                onPress={() => {
-                  setDeleteModalOpened(true);
-                  setCurArticle(item);
-                }}
-                className="gap-2 flex-row items-start p-2 w-full justify-end"
-              >
-                <AntDesign name="delete" size={24} color="black" />
-                <Text className="text-lg text-black font-medium uppercase">
-                  Delete
+              <View className="flex flex-row justify-between items-center">
+                <Text className="text-lg font-bold text-slate-700 leading-5">
+                  {item.title}
                 </Text>
-              </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => {
+                    setDeleteModalOpened(true);
+                    setCurArticle(item);
+                  }}
+                  className="gap-2 flex-row items-start w-min justify-end"
+                >
+                  <AntDesign name="delete" size={24} color="black" />
+                </TouchableOpacity>
+              </View>
               <Text className="text-slate-800">{item.description}</Text>
             </View>
           </TouchableOpacity>

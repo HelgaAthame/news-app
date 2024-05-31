@@ -13,7 +13,7 @@ const headerStyle = {
   backgroundColor: "#eb5d6d",
 };
 const headerTitleStyle: TextStyle = {
-  color: "#F7D7D7",
+  //color: "#F7D7D7",
   fontWeight: "300",
 };
 

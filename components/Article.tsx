@@ -8,11 +8,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Wrapper } from "./Wrapper";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Feather } from "@expo/vector-icons";
 import { EditNews } from "./EditNews";
 import { useQuery } from "@apollo/client";
 import { ONE_NEWS } from "../apollo/news";
+import { initialImageUri } from "./tempImageUri";
 
 export default function Article({
   route,
@@ -28,11 +29,12 @@ export default function Article({
   const { loading, error, data, refetch } = useQuery(ONE_NEWS, {
     variables: { id: +route.params.id },
   });
-  // const [uri, setUri] = useState<string>(
-  //   data
-  //     ? data.oneNews.img
-  //     : "https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg"
-  // );
+
+  const [imageUri, setImageUri] = useState(initialImageUri);
+
+  useEffect(() => {
+    if (data && data.oneNews && data.oneNews.img) setImageUri(data.oneNews.img);
+  }, [data]);
 
   if (loading) return;
 
@@ -56,38 +58,35 @@ export default function Article({
           </Text>
         </TouchableOpacity>
       </View>
-      <ScrollView
-
-        className="rounded-md bg-red-50 overflow-hidden w-full"
-        contentContainerStyle={{
-          flex: 1,
-        }}
-      >
-        <Image
-          className="w-full h-48 rounded-t-md"
-          source={{
-            uri: data
-              ? data.oneNews.img
-              : "https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg",
+      <View className="items-center gap-2 justify-between w-full grow px-2">
+        <ScrollView
+          className="rounded-md bg-red-50 overflow-hidden w-full "
+          contentContainerStyle={{
+            flex: 1,
           }}
-          // onError={() => {
-          //   setUri(
-          //     "https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg"
-          //   );
-          // }}
-        />
-        <View className="p-4 gap-2 ">
-          <Text className="text-xl font-bold text-slate-700 leading-6 py-2">
-            {data.oneNews.title}
-          </Text>
-          <Text className="text-slate-800 text-base leading-5 font-semibold">
-            {data.oneNews.description}
-          </Text>
-          <Text className="text-justify text-slate-700">
-            {data.oneNews.text}
-          </Text>
-        </View>
-      </ScrollView>
+        >
+          <Image
+            className="w-full h-48 rounded-t-md"
+            source={{
+              uri: imageUri,
+            }}
+            onError={() => {
+              setImageUri(initialImageUri);
+            }}
+          />
+          <View className="p-4 gap-2 ">
+            <Text className="text-xl font-bold text-slate-700 leading-6 py-2">
+              {data.oneNews.title}
+            </Text>
+            <Text className="text-slate-800 text-base leading-5 font-semibold">
+              {data.oneNews.description}
+            </Text>
+            <Text className="text-justify text-slate-700">
+              {data.oneNews.text}
+            </Text>
+          </View>
+        </ScrollView>
+      </View>
 
       <StatusBar style="auto" />
     </Wrapper>
