@@ -3,12 +3,11 @@ import { useState } from "react";
 import {
   Text,
   View,
-  Button,
   FlatList,
-  TouchableOpacity,
   Image,
   Modal,
   ActivityIndicator,
+  Pressable,
 } from "react-native";
 import { tempNews } from "./tempNews";
 import { Wrapper } from "./Wrapper";
@@ -58,16 +57,18 @@ export default function Welcome({ navigation }: { navigation: any }) {
         name={curArticle?.title ?? "No name article"}
         //addArticle={addArticle}
       />
-      <View className="flex-row items-center gap-2 justify-between w-full px-2">
-        <Button title={`About us`} onPress={loadScene} color="crimson" />
-        <TouchableOpacity onPress={() => setAddModalOpened(true)}>
+      <View className="flex-row items-center gap-2 justify-between w-full px-2 ">
+        <Pressable onPress={loadScene} className="bg-red-800">
+          <Text>About us</Text>
+        </Pressable>
+        <Pressable onPress={() => setAddModalOpened(true)}>
           <Ionicons name="add-circle" size={40} color="green" />
-        </TouchableOpacity>
+        </Pressable>
       </View>
       <FlatList
         data={data.allNews}
         renderItem={({ item }) => (
-          <TouchableOpacity
+          <Pressable
             key={item.id}
             className="rounded-md bg-red-50 overflow-hidden relative"
             onPress={() => {
@@ -94,7 +95,7 @@ export default function Welcome({ navigation }: { navigation: any }) {
                   {item.title}
                 </Text>
 
-                <TouchableOpacity
+                <Pressable
                   onPress={() => {
                     setDeleteModalOpened(true);
                     setCurArticle(item);
@@ -102,11 +103,11 @@ export default function Welcome({ navigation }: { navigation: any }) {
                   className="gap-2 flex-row items-start w-min justify-end"
                 >
                   <AntDesign name="delete" size={24} color="black" />
-                </TouchableOpacity>
+                </Pressable>
               </View>
               <Text className="text-slate-800">{item.description}</Text>
             </View>
-          </TouchableOpacity>
+          </Pressable>
         )}
         ItemSeparatorComponent={() => <View className="h-4" />}
       />

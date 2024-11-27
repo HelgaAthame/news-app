@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { Text, View, Button, ScrollView } from "react-native";
+import { Text, View, Pressable, ScrollView } from "react-native";
 import { Wrapper } from "./Wrapper";
 
 export default function Contacts({ navigation }: { navigation: any }) {
@@ -9,7 +9,9 @@ export default function Contacts({ navigation }: { navigation: any }) {
   return (
     <Wrapper>
       <View className="justify-between px-2 flew-col grow w-full">
-        <Button title={`Go to main page`} onPress={loadScene} color="crimson" />
+        <Pressable onPress={loadScene} className="bg-red-800">
+          <Text>Go to main page</Text>
+        </Pressable>
         <View className="h-4"></View>
         <ScrollView
           className="rounded-md bg-red-50 overflow-hidden "

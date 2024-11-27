@@ -2,7 +2,7 @@ import React from "react";
 import Welcome from "./components/Welcome";
 import Contacts from "./components/Contacts";
 import Article from "./components/Article";
-import type { TextStyle, Button } from "react-native";
+import type { TextStyle } from "react-native";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";

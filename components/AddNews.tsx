@@ -1,12 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import {
-  Modal,
-  TouchableOpacity,
-  View,
-  Text,
-  TextInput,
-  Button,
-} from "react-native";
+import { Modal, View, Text, TextInput, Pressable } from "react-native";
 import { Formik } from "formik";
 import { News } from "./Welcome";
 import * as Yup from "yup";
@@ -54,9 +47,9 @@ export const AddNews = ({ visible, onClose /*, addArticle*/ }: Props) => {
         <Text className="text-2xl font-bold text-slate-700 text-center grow">
           Add new article
         </Text>
-        <TouchableOpacity onPress={onClose} className="w-min ">
+        <Pressable onPress={onClose} className="w-min ">
           <Ionicons name="close-circle" size={40} color="gray" />
-        </TouchableOpacity>
+        </Pressable>
       </View>
       <View className="gap-2 bg-red-50 grow">
         <Formik
@@ -134,11 +127,12 @@ export const AddNews = ({ visible, onClose /*, addArticle*/ }: Props) => {
                 />
               </View>
               <View>
-                <Button
-                  title="Create"
+                <Pressable
                   onPress={() => props.handleSubmit()}
-                  color="crimson"
-                />
+                  className="bg-red-800"
+                >
+                  <Text>Create</Text>
+                </Pressable>
               </View>
             </View>
           )}

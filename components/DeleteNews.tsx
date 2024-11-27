@@ -1,11 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
 import {
   Modal,
-  TouchableOpacity,
+  Pressable,
   View,
   Text,
   TextInput,
-  Button,
 } from "react-native";
 import { Formik } from "formik";
 import { News } from "./Welcome";
@@ -34,20 +33,23 @@ export const DeleteNews = ({ visible, onClose, id, name }: Props) => {
             Area you sure you want to delete {name}?
           </Text>
         </View>
-        <TouchableOpacity onPress={onClose} className="w-min ">
+        <Pressable onPress={onClose} className="w-min ">
           <Ionicons name="close-circle" size={40} color="gray" />
-        </TouchableOpacity>
+        </Pressable>
       </View>
       <View className="bg-red-50 w-full justify-between flex flex-row gap-2 p-2">
-        <Button title="Cancel" onPress={onClose} color="gray" />
-        <Button
-          title="Delete"
+        <Pressable onPress={onClose} className="bg-gray-400">
+          <Text>Cancel</Text>
+        </Pressable>
+        <Pressable
           onPress={() => {
             removeArticle({ variables: { id: +id } });
             onClose();
           }}
-          color="crimson"
-        />
+          className="bg-red-800"
+        >
+          <Text>Delete</Text>
+        </Pressable>
       </View>
     </Modal>
   );
