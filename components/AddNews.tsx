@@ -5,6 +5,7 @@ import { News } from "./Welcome";
 import * as Yup from "yup";
 import { useMutation } from "@apollo/client";
 import { ALL_NEWS, CREATE_NEWS, ONE_NEWS } from "../apollo/news";
+import { Button } from "./Button";
 
 interface Props {
   visible: boolean;
@@ -127,12 +128,7 @@ export const AddNews = ({ visible, onClose /*, addArticle*/ }: Props) => {
                 />
               </View>
               <View>
-                <Pressable
-                  onPress={() => props.handleSubmit()}
-                  className="bg-red-800"
-                >
-                  <Text>Create</Text>
-                </Pressable>
+                <Button text={"Create"} onPress={() => props.handleSubmit()} />
               </View>
             </View>
           )}

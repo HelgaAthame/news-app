@@ -7,6 +7,7 @@ import { EditNews } from "./EditNews";
 import { useQuery } from "@apollo/client";
 import { ONE_NEWS } from "../apollo/news";
 import { initialImageUri } from "./tempImageUri";
+import { Button } from "./Button";
 
 export default function Article({
   route,
@@ -39,12 +40,8 @@ export default function Article({
         article={{ ...data.oneNews }}
         getUpdatedArticle={refetch}
       />
-      <View className="flex-row items-center gap-2 justify-between w-full px-2">
-        <Pressable onPress={loadScene} className="p-4">
-          <Text className="text-lg text-[#8B0000] font-medium uppercase">
-            Go to main page
-          </Text>
-        </Pressable>
+      <View className="flex-row items-center gap-4 justify-between w-full flex-wrap">
+        <Button text={"Go to main page"} onPress={loadScene} />
         <Pressable
           onPress={() => setEditModalOpened(true)}
           className="gap-2 flex-row items-start"
@@ -55,7 +52,7 @@ export default function Article({
           </Text>
         </Pressable>
       </View>
-      <View className="items-center gap-2 justify-between w-full grow px-2">
+      <View className="items-center gap-2 justify-between w-full grow">
         <ScrollView
           className="rounded-md bg-red-50 overflow-hidden w-full "
           contentContainerStyle={{

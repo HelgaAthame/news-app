@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { Text, View, Pressable, ScrollView } from "react-native";
 import { Wrapper } from "./Wrapper";
+import { Button } from "./Button";
 
 export default function Contacts({ navigation }: { navigation: any }) {
   const loadScene = () => {
@@ -8,10 +9,8 @@ export default function Contacts({ navigation }: { navigation: any }) {
   };
   return (
     <Wrapper>
-      <View className="justify-between px-2 flew-col grow w-full">
-        <Pressable onPress={loadScene} className="bg-red-800">
-          <Text>Go to main page</Text>
-        </Pressable>
+      <View className="justify-between flew-col grow w-full">
+        <Button text={"Go to main page"} onPress={loadScene} />
         <View className="h-4"></View>
         <ScrollView
           className="rounded-md bg-red-50 overflow-hidden "

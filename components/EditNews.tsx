@@ -1,17 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
-import {
-  Modal,
-  Pressable,
-  View,
-  Text,
-  TextInput,
-} from "react-native";
+import { Modal, Pressable, View, Text, TextInput } from "react-native";
 import { Formik } from "formik";
 import { News } from "./Welcome";
 import * as Yup from "yup";
 import { useMutation } from "@apollo/client";
 import { CREATE_NEWS, UPDATE_NEWS } from "../apollo/news";
 import { useEffect, useState } from "react";
+import { Button } from "./Button";
 
 interface Props {
   visible: boolean;
@@ -143,12 +138,7 @@ export const EditNews = ({
                 />
               </View>
               <View>
-                <Pressable
-                  onPress={() => props.handleSubmit()}
-                  className="bg-red-800"
-                >
-                  <Text>Save</Text>
-                </Pressable>
+                <Button text={"Save"} onPress={() => props.handleSubmit()} />
               </View>
             </View>
           )}

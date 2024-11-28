@@ -8,6 +8,8 @@ import {
   Modal,
   ActivityIndicator,
   Pressable,
+  SafeAreaView,
+  ScrollView,
 } from "react-native";
 import { tempNews } from "./tempNews";
 import { Wrapper } from "./Wrapper";
@@ -18,6 +20,7 @@ import { ALL_NEWS } from "../apollo/news";
 import { AntDesign } from "@expo/vector-icons";
 import { DeleteNews } from "./DeleteNews";
 import { initialImageUri } from "./tempImageUri";
+import { Button } from "./Button";
 
 export type News = {
   id: number;
@@ -57,60 +60,61 @@ export default function Welcome({ navigation }: { navigation: any }) {
         name={curArticle?.title ?? "No name article"}
         //addArticle={addArticle}
       />
-      <View className="flex-row items-center gap-2 justify-between w-full px-2 ">
-        <Pressable onPress={loadScene} className="bg-red-800">
-          <Text>About us</Text>
-        </Pressable>
+      <View className="flex-row items-center gap-2 justify-between flew-wrap w-full">
+        <Button text={"About Us"} onPress={loadScene} />
         <Pressable onPress={() => setAddModalOpened(true)}>
           <Ionicons name="add-circle" size={40} color="green" />
         </Pressable>
       </View>
-      <FlatList
-        data={data.allNews}
-        renderItem={({ item }) => (
-          <Pressable
-            key={item.id}
-            className="rounded-md bg-red-50 overflow-hidden relative"
-            onPress={() => {
-              navigation.navigate("Article", item);
-            }}
-          >
-            <View className="absolute w-full h-48 overflow-hidden">
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <FlatList
+          className="w-full"
+          data={data.allNews}
+          renderItem={({ item }) => (
+            <Pressable
+              key={item.id}
+              className="rounded-md bg-red-50 overflow-hidden relative"
+              onPress={() => {
+                navigation.navigate("Article", item);
+              }}
+            >
+              <View className="absolute w-full h-48 overflow-hidden">
+                <Image
+                  className="w-full h-48 z-1"
+                  source={{
+                    uri: initialImageUri,
+                  }}
+                />
+              </View>
               <Image
                 className="w-full h-48 z-1"
                 source={{
-                  uri: initialImageUri,
+                  uri: item.img,
                 }}
               />
-            </View>
-            <Image
-              className="w-full h-48 z-1"
-              source={{
-                uri: item.img,
-              }}
-            />
-            <View className="p-4 gap-2">
-              <View className="flex flex-row justify-between items-center">
-                <Text className="text-lg font-bold text-slate-700 leading-5">
-                  {item.title}
-                </Text>
+              <View className="p-4 gap-2">
+                <View className="flex flex-row justify-between items-center">
+                  <Text className="text-lg font-bold text-slate-700 leading-5">
+                    {item.title}
+                  </Text>
 
-                <Pressable
-                  onPress={() => {
-                    setDeleteModalOpened(true);
-                    setCurArticle(item);
-                  }}
-                  className="gap-2 flex-row items-start w-min justify-end"
-                >
-                  <AntDesign name="delete" size={24} color="black" />
-                </Pressable>
+                  <Pressable
+                    onPress={() => {
+                      setDeleteModalOpened(true);
+                      setCurArticle(item);
+                    }}
+                    className="gap-2 flex-row items-start w-min justify-end"
+                  >
+                    <AntDesign name="delete" size={24} color="black" />
+                  </Pressable>
+                </View>
+                <Text className="text-slate-800">{item.description}</Text>
               </View>
-              <Text className="text-slate-800">{item.description}</Text>
-            </View>
-          </Pressable>
-        )}
-        ItemSeparatorComponent={() => <View className="h-4" />}
-      />
+            </Pressable>
+          )}
+          ItemSeparatorComponent={() => <View className="h-4" />}
+        />
+      </ScrollView>
       <StatusBar style="auto" />
     </Wrapper>
   );
