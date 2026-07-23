@@ -31,7 +31,7 @@ export const DeleteNews = ({ visible, onClose, id, name }: Props) => {
       <View className="flex-row flew-nowrap justify-between p-2 bg-red-50 grow">
         <View className="h-full flex items-center justify-center ">
           <Text className="text-2xl font-bold text-slate-700 text-center p-8">
-            Area you sure you want to delete {name}?
+            Are you sure you want to delete {name}?
           </Text>
         </View>
         <TouchableOpacity onPress={onClose} className="w-min ">
